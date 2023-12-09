@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  catalogapi:
+    image: ${DOCKER_REGISTRY-}catalogapi
+    build:
+      context: .
+      dockerfile: CatalogApi/Dockerfile
+    networks:
+      - otel-demo-jaeger-network
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    environment:
+      COLLECTOR_OTLP_ENABLED: "true"
+    ports:
+      - "5775:5775/udp"
+      - "6831:6831/udp"
+      - "6832:6832/udp"
+      - "5778:5778"
+      - "16686:16686"
+      - "14268:14268"
+      - "9411:9411"
+
+    networks:
+      - otel-demo-jaeger-network
+
+networks:
+  otel-demo-jaeger-network:
+    driver: bridge

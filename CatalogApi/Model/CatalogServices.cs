@@ -1,0 +1,15 @@
+﻿using CatalogApi.Infrastructure;
+using Microsoft.Extensions.Options;
+
+namespace CatalogApi.Model;
+
+public class CatalogServices(
+    CatalogContext context,
+    IOptions<CatalogOptions> options,
+    ILogger<CatalogServices> logger
+)
+{
+    public CatalogContext Context { get; } = context;
+    public IOptions<CatalogOptions> Options { get; } = options;
+    public ILogger<CatalogServices> Logger { get; } = logger;
+}
